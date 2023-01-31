@@ -1,13 +1,51 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <link rel="icon" href="./favicon.ico"/>
-        <meta name="viewport" content="width=device-width,initial-scale=1"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous"/>
-        <meta name="description" content="I am a doctoral biomedical engineering student. This is my personal website with some of my projects."/>
-        <title>Therosafe</title>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z7MFE7S5K9">
-            
-        </script>
-        <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-Z7MFE7S5K9")</script><script defer="defer" src="./static/js/main.221a03e5.js"></script><link href="./static/css/main.d64c2089.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body><script defer="defer">window.addEventListener("scroll",(function(){var e=document.getElementById("header"),t=document.getElementById("back-to-the-top");window.scrollY>e.offsetTop+e.offsetHeight?t.classList.remove("hidden"):t.classList.add("hidden")}))</script></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Animated Model Viewer</title>
+  </head>
+  <body>
+    <div id="model-viewer"></div>
+
+    <model-viewer src="cart.glb" poster="../../assets/ShopifyModels/Chair.webp" shadow-intensity="1" ar camera-controls touch-action="pan-y" alt="A 3D model carousel">
+  
+        <button slot="ar-button" id="ar-button">
+          View in your space
+        </button>
+      
+        <div id="ar-prompt">
+          <img src="cart.webp">
+        </div>
+      
+        <button id="ar-failure">
+          AR is not tracking!
+        </button>
+      
+        <div class="slider">
+          <div class="slides">
+            <button class="slide selected" onclick="switchSrc(this, 'Chair')" style="background-image: url('../../assets/ShopifyModels/Chair.webp');">
+      
+          </button></div>
+        </div>
+      </model-viewer>
+      
+      <script type="module">
+        const modelViewer = document.querySelector("model-viewer");
+      
+        window.switchSrc = (element, name) => {
+          const base = "../../assets/ShopifyModels/" + name;
+          modelViewer.src = base + '.glb';
+          modelViewer.poster = base + '.webp';
+          const slides = document.querySelectorAll(".slide");
+          slides.forEach((element) => {element.classList.remove("selected");});
+          element.classList.add("selected");
+        };
+      
+        document.querySelector(".slider").addEventListener('beforexrselect', (ev) => {
+          // Keep slider interactions from affecting the XR scene.
+          ev.preventDefault();
+        });
+      </script>
+      <script></script>
+  </body>
+</html>
